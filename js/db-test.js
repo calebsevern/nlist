@@ -31,7 +31,7 @@ var test_object = true;
 			console.log("Created Experiment with id: " + a.id);
 			
 			a.set("name", "Test Name");
-			a.set("description", "Test Description");
+			a.set("description", "CCCCCCCCC");
 			a.set("class_name", "Test Class");
 			a.set("proctor", "Mr. Doe");
 			a.save(function(result) {
