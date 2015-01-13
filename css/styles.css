@@ -1,4 +1,5 @@
 @import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
+@import url(http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css);
 
 html, body {
 	font-family: 'Lato', sans-serif;
@@ -40,6 +41,8 @@ html, body {
 	top: 0px;
 	height: 100%;
 	left: 200px;
+	width: calc(100% - 200px);
+	border: 0px;
 	overflow-y: auto;
 	overflow-x: hidden;
 }
@@ -119,14 +122,41 @@ html, body {
 	left: 0px;
 	width: 100%;
 	top: 0px;
-	height: 60px;
-	padding: 20px;
+	height: 55px;
+	background: #fafafa;
+	box-shadow: 0px 2px 2px rgba(0, 0, 0, .04);
+	z-index: 2;
 }
 
-.page-header > .header-text {
-	font-size: 26px;
-	font-weight: 700;
-}
+	.page-header > .header-text {
+		font-size: 26px;
+		font-weight: 700;
+		position: relative;
+		top: 10px;
+		left: 20px;
+		float: left;
+		margin-right: 36px;
+	}
+
+	.page-header > .action {
+		float: left;
+		position: relative;
+		width: 60px;
+		height: 100%;
+		text-align: center;
+	}
+	
+	.page-header > .action:hover {
+		background: rgba(0, 0, 0, .08);
+		cursor: pointer;
+	}
+	
+	.page-header > .action > i {
+		font-size: 20px;
+		color: rgba(0, 0, 0, .2);
+		position: relative;
+		top: 16px;
+	}
 
 .experiments-list {
 	position: relative;
@@ -202,7 +232,7 @@ html, body {
 	left: 40px;
 }
 
-.new-form > input[type='text'], .new-form > textarea {
+input[type], textarea {
 	font-weight: 300;
 	padding: 8px;
 	font-size: 16px;
@@ -211,6 +241,7 @@ html, body {
 	background: none;
 	width: 400px;
 	margin-bottom: 3px;
+	resize: none;
 }
 
 .form-label {
@@ -223,7 +254,7 @@ html, body {
 	top: 5px;
 }
 
-.new-form > input[type='submit'] {
+input[type='submit'] {
 	padding: 8px;
 	padding-left: 12px;
 	background: #2980b9;
@@ -233,10 +264,9 @@ html, body {
 	border-radius: 2px;
 }
 
-.new-form > input[type='submit']:hover {
+input[type='submit']:hover {
 	cursor: pointer;
 }
-
 
 
 /***********************************************************
@@ -323,6 +353,72 @@ html, body {
 	font-size: 15px;
 	border-top: 1px solid rgba(0, 0, 0, .12);
 }
+
+
+/***********************************************************
+*
+*					admin/experiment.php
+*
+************************************************************/
+
+.experiment-details-pane {
+	position: absolute;
+	left: 22px;
+	top: 80px;
+	background: #fafafa;
+	border: 2px solid rgba(0, 0, 0, .08);
+	padding: 10px;
+}
+
+.experiment-sessions-pane {
+	position: absolute;
+	left: 490px;
+	top: 80px;
+	background: #fafafa;
+	border: 2px solid rgba(0, 0, 0, .08);
+	height: calc(100% - 130px);
+	width: calc(100% - 540px);
+	overflow: hidden;
+}
+
+.experiment-sessions-pane > .sessions-list {
+	position: relative;
+	top: 0px;
+	height: 100%;
+	padding: 10px;
+	overflow-y: auto;
+	background: rgba(0, 0, 0, .1);
+}
+
+.sessions-list > .session {
+	position: relative;
+	display: block;
+	width: calc(100% - 20px);
+	left: 10px;
+	height: 200px;
+	background: #efefef;
+	margin-bottom: 20px;
+	margin-top: 10px;
+}
+
+	.session > .title {
+		
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
