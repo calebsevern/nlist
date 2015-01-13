@@ -45,7 +45,6 @@
 	
 	$create_users = mysqli_query($link, $sql);
 	if(!$create_users)
-	
 		die("Could not create Users table.\n");
 	else
 		echo "Created Users table.\n";
@@ -57,6 +56,7 @@
 	$sql .= "name VARCHAR(256) NOT NULL, ";
 	$sql .= "description VARCHAR(512) NOT NULL, ";
 	$sql .= "class_name VARCHAR(256) NOT NULL, ";
+	$sql .= "proctor_email VARCHAR(256) NOT NULL, ";
 	$sql .= "proctor VARCHAR(256) NOT NULL);";
 	
 	$create_experiments = mysqli_query($link, $sql);
@@ -65,6 +65,26 @@
 		die("Could not create Experiments table.\n");
 	else
 		echo "Created Experiments table.\n";
+		
+		
+	//Create Sessions table
+	$sql = "CREATE TABLE IF NOT EXISTS Sessions( ";
+	$sql .= "id VARCHAR(256) NOT NULL, ";
+	$sql .= "date VARCHAR(256) NOT NULL, ";
+	$sql .= "time VARCHAR(512) NOT NULL, ";
+	$sql .= "minutes VARCHAR(256) NOT NULL, ";
+	$sql .= "required_participants VARCHAR(256) NOT NULL, ";
+	$sql .= "reserve_participants VARCHAR(256) NOT NULL, ";
+	$sql .= "associated_experiment VARCHAR(256) NOT NULL, ";
+	$sql .= "notes VARCHAR(256) NOT NULL, ";
+	$sql .= "laboratory VARCHAR(256) NOT NULL);";
+	
+	$create_sessions = mysqli_query($link, $sql);
+	
+	if(!$create_sessions)
+		die("Could not create Sessions table.\n");
+	else
+		echo "Created Sessions table.\n";
 
 
 	//Create default administrator with password "password"
