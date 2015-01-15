@@ -13,14 +13,14 @@
 			</div>
 			<div class="tab"></div>
 			<div class="label">Experiments</div>
-			<div class="tab" data-url="admin/newexperiment.php">Create New</div>
-			<div class="tab" data-url="admin/currentexperiments.php">Current</div>
-			<div class="tab" data-url="admin/completedexperiments.php">Completed</div>
-			<div class="tab" data-url="admin/currentexperiments.php">Overview</div>
+			<div class="tab" data-url="admin/new_experiment.php">Create New</div>
+			<div class="tab" data-url="admin/current_experiments.php">Current</div>
+			<div class="tab" data-url="admin/completed_experiments.php">Completed</div>
+			<div class="tab" data-url="admin/current_experiments.php">Overview</div>
 			
 			<div class="tab"></div>
 			<div class="label">Participants</div>
-			<div class="tab">Create New</div>
+			<div class="tab" data-url="admin/new_participant.php">Create New</div>
 			<div class="tab">Overview</div>
 			
 			<div class="tab"></div>

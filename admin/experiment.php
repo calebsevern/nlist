@@ -60,15 +60,6 @@
 		</div>
 		
 		<div class="sessions-list">
-			<div class="session">
-			</div>
-			<div class="session">
-			</div>
-			<div class="session">
-			</div>
-			<div class="session">
-			</div>
-			
 		</div>
 	</div>
 	

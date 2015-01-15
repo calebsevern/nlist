@@ -160,8 +160,9 @@ html, body {
 
 .experiments-list {
 	position: relative;
-	width: 100%;
-	left: 0px;
+	width: calc(100% - 20px);
+	left: 10px;
+	top: 10px;
 	text-align: center;
 }
 
@@ -170,8 +171,30 @@ html, body {
 	height: 300px;
 	margin: 8px;
 	display: inline-block;
-	width: 30%;
+	width: calc(33% - 15px);
 	min-width: 300px;
+	float: left;
+}
+
+	.no-experiments:hover {
+		cursor: pointer;
+	}
+
+	.no-experiments > i {
+		font-size: 64px;
+		color: rgba(0, 0, 0, .2);
+	}
+
+@media (max-width: 1010px) {
+	.experiments-list > .experiment {
+		width: 48%;
+	}
+}
+
+@media (max-width: 840px) {
+	.experiments-list > .experiment {
+		width: 97%;
+	}
 }
 
 .experiments-list > .experiment > .experiment-name {
@@ -197,12 +220,12 @@ html, body {
 	width: calc(100% - 30px);
 	position: relative;
 	text-align: left;
-	top: 30px;
+	top: 16px;
 }
 
 .experiments-list > .experiment > .reg-url {
-	position: absolute;
-	top: 284px;
+	position: relative;
+	top: 100px;
 	margin-left: 15px;
 	font-size: 12px;
 	text-align: left;
@@ -401,10 +424,56 @@ input[type='submit']:hover {
 	margin-top: 10px;
 }
 
-	.session > .title {
-		
+	.session > .session-date {
+		position: relative;
+		top: 10px;
+		left: 10px;
+		font-weight: 700;
+		font-size: 18px;
 	}
-
+	
+	.session > .timeframe {
+		position: relative;
+		top: 10px;
+		left: 10px;
+	}
+	
+	.session > .users {
+		position: absolute;
+		right: 0px;
+		top: 0px;
+		height: 70%;
+		width: 140px;
+		text-align: center;
+		background: #3498db;
+		color: #efefef;
+	}
+	
+		.users > .num {
+			font-weight: 700;
+			font-size: 56px;
+			position: relative;
+			top: 30px;
+		}
+		
+	.session > .reserve {
+		position: absolute;
+		right: 0px;
+		bottom: 0px;
+		height: 30%;
+		width: 140px;
+		text-align: center;
+		background: #f39c12;
+		color: #efefef;
+	}
+	
+		.reserve > .num {
+			font-weight: 400;
+			font-size: 15px;
+			position: relative;
+			top: 20px;
+		}
+		
 
 
 

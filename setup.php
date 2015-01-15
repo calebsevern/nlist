@@ -57,6 +57,7 @@
 	$sql .= "description VARCHAR(512) NOT NULL, ";
 	$sql .= "class_name VARCHAR(256) NOT NULL, ";
 	$sql .= "proctor_email VARCHAR(256) NOT NULL, ";
+	$sql .= "finished BOOLEAN NOT NULL, ";
 	$sql .= "proctor VARCHAR(256) NOT NULL);";
 	
 	$create_experiments = mysqli_query($link, $sql);
@@ -70,9 +71,10 @@
 	//Create Sessions table
 	$sql = "CREATE TABLE IF NOT EXISTS Sessions( ";
 	$sql .= "id VARCHAR(256) NOT NULL, ";
-	$sql .= "date VARCHAR(256) NOT NULL, ";
-	$sql .= "time VARCHAR(512) NOT NULL, ";
-	$sql .= "minutes VARCHAR(256) NOT NULL, ";
+	$sql .= "start_date VARCHAR(256) NOT NULL, ";
+	$sql .= "start_time VARCHAR(512) NOT NULL, ";
+	$sql .= "end_time VARCHAR(256) NOT NULL, ";
+	$sql .= "length VARCHAR(256) NOT NULL, ";
 	$sql .= "required_participants VARCHAR(256) NOT NULL, ";
 	$sql .= "reserve_participants VARCHAR(256) NOT NULL, ";
 	$sql .= "associated_experiment VARCHAR(256) NOT NULL, ";

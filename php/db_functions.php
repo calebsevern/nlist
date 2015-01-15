@@ -47,6 +47,9 @@
 		$sth -> bind_param("s", $val);
 		$sth->execute();
 		
+		
+		
+		
 		$meta = $sth->result_metadata();
 
 		while ($field = $meta->fetch_field()) {
@@ -55,14 +58,16 @@
 
 		call_user_func_array(array($sth, 'bind_result'), $parameters);
 
+		
 		while ($sth->fetch()) {
 			foreach($row as $key => $val) {
 				$x[$key] = $val;
 			}
 			$results[] = $x;
-			echo json_encode($results);
-			exit();
 		}
+		echo json_encode($results);
+		exit();
+		
 	}
 	
 	
