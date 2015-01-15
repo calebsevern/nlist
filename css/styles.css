@@ -475,8 +475,25 @@ input[type='submit']:hover {
 		}
 		
 
+		
+/***********************************************************
+*
+*					admin/participant_attributes.php
+*
+************************************************************/
 
+.custom-attributes {
+	position: relative;
+	left: 40px;
+}
 
+	.custom-attributes td {
+		padding: 6px;
+	}
+
+	.custom-attributes .attribute-name {
+		font-weight: bold;
+	}
 
 
 

@@ -40,7 +40,7 @@
 	$sql .= "username VARCHAR(100) NOT NULL, ";
 	$sql .= "password VARCHAR(256) NOT NULL, ";
 	$sql .= "email VARCHAR(100) NOT NULL, ";
-	$sql .= "admin TINYINT(1) NOT NULL, ";
+	$sql .= "admin BOOLEAN NOT NULL, ";
 	$sql .= "full_name VARCHAR(256) NOT NULL);";
 	
 	$create_users = mysqli_query($link, $sql);
@@ -48,6 +48,35 @@
 		die("Could not create Users table.\n");
 	else
 		echo "Created Users table.\n";
+		
+	
+	//Create Participants table
+	$sql = "CREATE TABLE IF NOT EXISTS Participants( ";
+	$sql .= "id VARCHAR(256) NOT NULL, ";
+	$sql .= "email VARCHAR(100) NOT NULL, ";
+	$sql .= "password VARCHAR(256) NOT NULL, ";
+	$sql .= "phone_number VARCHAR(256) NOT NULL, ";
+	$sql .= "notes VARCHAR(512) NOT NULL, ";
+	$sql .= "full_name VARCHAR(256) NOT NULL);";
+	
+	$create_participants = mysqli_query($link, $sql);
+	if(!$create_participants)
+		die("Could not create Participants table.\n");
+	else
+		echo "Created Participants table.\n";
+		
+		
+	//Create Registration table
+	$sql = "CREATE TABLE IF NOT EXISTS Registration( ";
+	$sql .= "associated_participant VARCHAR(256) NOT NULL, ";
+	$sql .= "associated_experiment VARCHAR(256) NOT NULL, ";
+	$sql .= "associated_session VARCHAR(256) NOT NULL);";
+	
+	$create_registration = mysqli_query($link, $sql);
+	if(!$create_registration)
+		die("Could not create Registration table.\n");
+	else
+		echo "Created Registration table.\n";
 		
 		
 	//Create Experiments table
@@ -66,6 +95,20 @@
 		die("Could not create Experiments table.\n");
 	else
 		echo "Created Experiments table.\n";
+		
+	
+	//Create Participant_Attributes table
+	$sql = "CREATE TABLE IF NOT EXISTS Participant_Attributes( ";
+	$sql .= "name VARCHAR(256) NOT NULL, ";
+	$sql .= "description VARCHAR(512) NOT NULL, ";
+	$sql .= "active BOOLEAN NOT NULL);";
+	
+	$create_participant_attributes = mysqli_query($link, $sql);
+	
+	if(!$create_participant_attributes)
+		die("Could not create Participant_Attributes table.\n");
+	else
+		echo "Created Participant_Attributes table.\n";
 		
 		
 	//Create Sessions table

@@ -14,7 +14,7 @@
 	</div>
 
 	<div class="new-form-container">
-		<form class="new-form create-new-experiment" method="POST">
+		<form class="new-form create-new-participant" method="POST">
 		
 			<div class="form-label" data-for="participant-name">Full Name</div><br>
 			<input type="text" class="participant-name" placeholder="Full Name">

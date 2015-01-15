@@ -310,8 +310,72 @@ function getCompletedExperiments() {
 
 
 
+/*
+*	admin/participant_attributes.php
+*/
+
+$(document).on('blur', '.new-attr-name', function() {
+
+	if($(this).val()) {
+		
+		var query = new Query("Participant_Attributes");
+		query.create(function(a) {
+			console.log(a);
+			a.set("name", "TEST");
+			a.save(function(result) {
+				alert("saved");
+			});
+		});
+	}
+});
 
 
+
+
+/*
+*	admin/new_participant.php
+*/
+
+$(document).on('submit', '.create-new-participant', function(e) {
+
+	e.preventDefault();
+	
+	var query = new Query("Participants");
+	query.create(function(a) {
+		console.log("Created Participants with id: " + a.id);
+		
+		a.set("email", $(".participant-email").val());
+		a.set("username", $(".participant-email").val());
+		a.set("full_name", $(".participant-name").val());
+		a.set("phone_number", $(".participant-phone").val());
+		a.set("notes", $(".participant-notes").val());
+		a.save(function(result) {
+			alert('Participant created.');
+			window.location.reload();
+		});
+	});
+	
+	return false;
+});
+
+
+
+
+/*
+*	admin/participant_overview.php
+*/
+
+function getAllParticipants() {
+
+	var query = new Query("Participants");
+	query.equalTo("password", "");
+	query.find(function(results) {
+	
+		for(var i=0; i<results.length; i++) {
+			$(".new-form").append(results[i].full_name + "<br><br>");
+		}	
+	});
+}
 
 
 

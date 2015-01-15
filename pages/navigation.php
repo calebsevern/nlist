@@ -21,12 +21,12 @@
 			<div class="tab"></div>
 			<div class="label">Participants</div>
 			<div class="tab" data-url="admin/new_participant.php">Create New</div>
-			<div class="tab">Overview</div>
+			<div class="tab" data-url="admin/participant_overview.php">Overview</div>
 			
 			<div class="tab"></div>
 			<div class="label">Utilities</div>
 			<div class="tab">Documents</div>
-			<div class="tab">Settings</div>
+			<div class="tab" data-url="admin/settings.php">Settings</div>
 			<div class="tab">Statistics</div>
 			<div class="tab"></div>
 			<div class="tab logout">Logout</div>
