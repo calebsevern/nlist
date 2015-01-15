@@ -243,6 +243,8 @@ function getCurrentExperiments() {
 	query.find(function(results) {
 	
 		if(results) {
+		
+			console.log(results);
 			for(var i=0; i<results.length; i++) {
 				
 				$(".experiments-list").append('<div class="experiment">\
@@ -273,6 +275,8 @@ function getCurrentExperiments() {
 		});
 	});
 }
+
+
 
 
 
