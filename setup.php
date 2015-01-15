@@ -117,7 +117,7 @@
 	$sql .= "start_date VARCHAR(256) NOT NULL, ";
 	$sql .= "start_time VARCHAR(512) NOT NULL, ";
 	$sql .= "end_time VARCHAR(256) NOT NULL, ";
-	$sql .= "length VARCHAR(256) NOT NULL, ";
+	$sql .= "duration VARCHAR(256) NOT NULL, ";
 	$sql .= "required_participants VARCHAR(256) NOT NULL, ";
 	$sql .= "reserve_participants VARCHAR(256) NOT NULL, ";
 	$sql .= "associated_experiment VARCHAR(256) NOT NULL, ";

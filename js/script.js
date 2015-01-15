@@ -108,7 +108,7 @@ function populateExperimentDetails(experiment_id) {
 	query.find(function(results) {
 		
 		for(var i=0; i<results.length; i++) {
-			$(".sessions-list").append('<div class="session">\
+			$(".sessions-list").append('<div class="session" id="' + results[i].id + '">\
 											<div class="session-date">' + results[i].start_date + '</div>\
 											<div class="timeframe">\
 												' + results[i].start_time + ' to ' + results[i].end_time + '\
@@ -121,6 +121,10 @@ function populateExperimentDetails(experiment_id) {
 												<text class="num">' + results[i].reserve_participants + ' on reserve</text>\
 											</div>\
 										</div>');
+										
+			$(".session").click(function() {
+				window.location.replace("session.php?id=" + this.id);
+			});
 		}
 	});
 }
@@ -146,6 +150,94 @@ $(document).on('submit', '.save-experiment', function(e) {
 
 
 
+
+
+/*
+*	admin/session.php
+*/
+
+function editSessionDetails(session_id) {
+
+
+	//Get Session information
+	
+	var query = new Query("Sessions");
+	query.equalTo("id", session_id);
+	query.find(function(results) {
+		session = results[0];
+		window.active_session_id = session.id;
+		
+		var session_date = new Date(session.start_date).toISOString(0, 10).substring(0, 10);
+		var start_hour = session.start_time.split(":")[0];
+		var start_min = session.start_time.split(":")[1];
+		var session_time = (start_hour > 11) ? (parseFloat(start_hour) - 12) + ":" + start_min + "pm" : start_hour + ":" + start_min + "am";
+		var duration_hours = (session.duration.split(":")[0] < 10) ? "0" + session.duration.split(":")[0] : session.duration.split(":")[0];
+		var duration_minutes = session.duration.split(":")[1];
+		
+		$(".session-date").val(session_date);
+		$(".session-time").val(session_time);
+		$(".session-lab").val(session.laboratory).trigger("keyup");
+		$(".required-participants").val(session.required_participants);
+		$(".reserve-participants").val(session.reserve_participants);
+		$(".session-notes").val(session.notes).trigger("keyup");
+		$(".session-length").val(duration_hours + ":" + duration_minutes + ":00");
+		
+	});
+}
+
+
+$(document).on('submit', '.edit-session', function(e) {
+
+	e.preventDefault();
+	
+	var query = new Query("Sessions");
+	query.get(window.active_session_id, function(a) {
+		
+		var hours = parseFloat(($(".session-length").val().split(":")[0]));
+		var minutes = parseFloat(($(".session-length").val().split(":")[1]));
+		var duration = (hours * 60) + minutes;
+		
+		var start_hours = parseFloat(($(".session-time").val().split(":")[0]));
+		var start_minutes = parseFloat(($(".session-time").val().split(":")[1]));
+		
+		var start_total = (start_hours * 60) + start_minutes;
+		var end_total = start_total + duration;
+		
+		var end_hours = Math.floor(end_total / 60);
+		var end_minutes = (end_total % 60);
+		if(end_minutes < 10)
+			end_minutes = "0" + end_minutes;
+		
+		var length_min = (minutes < 10) ? "0" + minutes : minutes;
+		//American-ize the date
+		
+		var b = new Date($(".session-date").val()).toISOString(0, 10).substring(0, 10);
+		var c = b.split("-")[1] + "/" + b.split("-")[2] + "/" + b.split("-")[0];
+		
+		var pm = $(".session-time").val().indexOf("pm") > -1;
+		var sh = (pm) ? parseFloat($(".session-time").val().split(":")[0]) + 12 : $(".session-time").val().split(":")[0];
+		var sm = $(".session-time").val().replace("am", "").replace("pm", "").split(":")[1];
+			
+		end_hours = (pm) ? end_hours + 12 : end_hours;
+		
+		a.set("start_date", c);
+		a.set("start_time", sh + ":" + sm);
+		a.set("end_time", end_hours + ":" + end_minutes);
+		a.set("duration", hours + ":" + length_min);
+		a.set("associated_experiment", window.active_experiment_id);
+		a.set("required_participants", $(".required-participants").val());
+		a.set("reserve_participants", $(".reserve-participants").val());
+		a.set("notes", $(".session-notes").val());
+		a.set("laboratory", $(".session-lab").val());
+	
+		a.save(function(result) {
+			window.location.reload();
+		});
+	});
+		
+	
+	return false;
+});
 
 
 
@@ -205,10 +297,16 @@ $(document).on('submit', '.new-session', function(e) {
 		var b = new Date($(".session-date").val()).toISOString(0, 10).substring(0, 10);
 		var c = b.split("-")[1] + "/" + b.split("-")[2] + "/" + b.split("-")[0];
 		
+		var pm = $(".session-time").val().indexOf("pm") > -1;
+		var sh = (pm) ? parseFloat($(".session-time").val().split(":")[0]) + 12 : $(".session-time").val().split(":")[0];
+		var sm = $(".session-time").val().replace("am", "").replace("pm", "").split(":")[1];
+			
+		end_hours = (pm) ? end_hours + 12 : end_hours;
+		
 		a.set("start_date", c);
-		a.set("start_time", $(".session-time").val().replace("am", "").replace("pm", ""));
+		a.set("start_time", sh + ":" + sm);
 		a.set("end_time", end_hours + ":" + end_minutes);
-		a.set("length", hours + ":" + length_min);
+		a.set("duration", hours + ":" + length_min);
 		a.set("associated_experiment", window.active_experiment_id);
 		a.set("required_participants", $(".required-participants").val());
 		a.set("reserve_participants", $(".reserve-participants").val());
@@ -218,7 +316,6 @@ $(document).on('submit', '.new-session', function(e) {
 		
 		a.save(function(result) {
 			window.location.replace("experiment.php?id=" + window.active_experiment_id);
-			
 		});
 	});
 	
@@ -242,9 +339,8 @@ function getCurrentExperiments() {
 	query.equalTo("finished", 0);
 	query.find(function(results) {
 	
-		if(results) {
+		if(results.length > 0) {
 		
-			console.log(results);
 			for(var i=0; i<results.length; i++) {
 				
 				$(".experiments-list").append('<div class="experiment">\
@@ -290,7 +386,8 @@ function getCompletedExperiments() {
 	var query = new Query("Experiments");
 	query.equalTo("finished", 1);
 	query.find(function(results) {
-	
+		
+		if(results.length > 0)
 		for(var i=0; i<results.length; i++) {
 			
 			$(".experiments-list").append('<div class="experiment">\
@@ -304,7 +401,13 @@ function getCompletedExperiments() {
 												<i class="fa fa-share-square"></i> <a href="experiment.php?id=' + results[i].id + '">http://example.com/e/?e=3923758</a>\
 											</div>\
 										</div>');
-		}	
+		} else {
+			
+			$(".experiments-list").append('<div class="experiment no-experiments">\
+												<br><br><br><br><br><i class="fa fa-plus"></i>\
+												<br><br><br>No completed experiments. You should make one.\
+											</div>');
+		}
 
 		$(".experiment-name").click(function() {
 			window.location.replace("experiment.php?id=" + this.id);
