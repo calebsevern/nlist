@@ -204,7 +204,7 @@ html, body {
 	height: 90px;
 	font-size: 24px;
 	padding-top: 60px;
-	background: #16a085;
+	background: #27ae60;
 	font-weight: bold;
 	color: white;
 }
@@ -365,6 +365,11 @@ input[type='submit']:hover {
 	cursor: pointer;
 }
 
+.login-error {
+	display: none;
+	color: #e74c3c;
+}
+
 .existing-account {
 	position: absolute;
 	bottom: 0px;
@@ -478,6 +483,27 @@ input[type='submit']:hover {
 			top: 20px;
 		}
 		
+
+	
+.sessions-list > .participant {
+	position: relative;
+	width: 100%;
+	padding: 6px;
+}
+
+	.participant > td, .sessions-list > thead > tr > th {
+		padding: 6px;
+		text-align: left;
+	}
+	
+	.participant > td {
+		border-bottom: 1px solid rgba(0, 0, 0, .06);
+	}
+
+	.participant > td > input, .sessions-list > thead > tr > th > input {
+		width: 30px;
+	}
+	
 
 		
 /***********************************************************
