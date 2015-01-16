@@ -43,6 +43,12 @@
 			
 			<br><br>
 			
+			<div class="form-label" data-for="experiment-finished" style="display: inline;">
+				<input type="checkbox" class="experiment-finished" style="width: 30px; position: relative; top: 2px;">
+				Experiment Finished</div><br>
+			
+			<br><br>
+			
 			<input type="submit" value="SAVE EXPERIMENT">
 			<br><br>
 		</form>

@@ -16,7 +16,7 @@
 			<div class="tab" data-url="admin/new_experiment.php">Create New</div>
 			<div class="tab" data-url="admin/current_experiments.php">Current</div>
 			<div class="tab" data-url="admin/completed_experiments.php">Completed</div>
-			<div class="tab" data-url="admin/current_experiments.php">Overview</div>
+			<div class="tab" data-url="admin/all_experiments.php">All</div>
 			
 			<div class="tab"></div>
 			<div class="label">Participants</div>

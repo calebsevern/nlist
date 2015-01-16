@@ -1,5 +1,6 @@
 <?php
 	$session_id = $_GET['id'];
+	$experiment = $_GET['experiment'];
 ?>
 
 <!doctype html>
@@ -64,6 +65,39 @@
 		</form>
 	</div>
 	
+	<div class="experiment-sessions-pane">
+		<div class="page-header">
+			<div class="header-text">
+				Participants
+			</div>
+			
+			<a href="#" class="action save-session-participants">
+				<i class="fa fa-floppy-o"></i>
+			</a>
+			<a href="#" class="action send-session-emails" id="<?php echo $session_id;?>">
+				<i class="fa fa-envelope-o"></i>
+			</a>
+			<div class="action email-status" style="width: 150px; display: none;">
+				<i class="fa fa-spinner fa-spin"></i> 
+				<text class="email-status-text" style="position: relative; left: 10px; top: 15px;">
+					Sending
+				</text>
+			</div>
+			
+			
+		</div>
+		
+		<table class="sessions-list" style="width: 100%; height: auto; border-collapse: collapse; background: none;">
+			<thead>
+				<tr>
+					<th><input type="checkbox" class="select-all"></th>
+					<th style="text-align: left;">Name</th>
+					<th style="text-align: left;">Email</th>
+				</tr>
+			</thead>
+		</table>
+	</div>
+	
 	<script src="../js/jquery.2.1.1.min.js"></script>
 	<script src="../js/jquery-ui.min.js"></script>
 	<script src="../js/jquery.timepicker.min.js"></script>
@@ -81,6 +115,8 @@
 		}
 		
 		$(function() {
+			
+			getSessionParticipants("<?php echo $session_id;?>", "<?php echo $experiment;?>");
 			
 			//Set date and time inputs
 			

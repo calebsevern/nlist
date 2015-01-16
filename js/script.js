@@ -98,6 +98,8 @@ function populateExperimentDetails(experiment_id) {
 		$(".experiment-class").val(experiment.class_name).trigger("keyup");
 		$(".experiment-proctor").val(experiment.proctor).trigger("keyup");
 		$(".experiment-proctor-email").val(experiment.proctor_email).trigger("keyup");
+		if(experiment.finished == 1)
+			$(".experiment-finished").prop("checked", true);
 	});
 	
 	
@@ -123,7 +125,7 @@ function populateExperimentDetails(experiment_id) {
 										</div>');
 										
 			$(".session").click(function() {
-				window.location.replace("session.php?id=" + this.id);
+				window.location.replace("session.php?id=" + this.id + "&experiment=" + experiment_id);
 			});
 		}
 	});
@@ -140,6 +142,12 @@ $(document).on('submit', '.save-experiment', function(e) {
 		experiment.set("class_name", $(".experiment-class").val());
 		experiment.set("proctor_email", $(".experiment-proctor-email").val());
 		experiment.set("proctor", $(".experiment-proctor").val());
+		
+		if($(".experiment-finished").is(":checked"))
+			experiment.set("finished", 1);
+		else
+			experiment.set("finished", 0);
+		
 		experiment.save(function(a) {
 			window.location.reload();
 		});
@@ -184,6 +192,126 @@ function editSessionDetails(session_id) {
 		
 	});
 }
+
+
+function isRegistered(session_id, experiment_id, participant_id) {
+	var query = new Query("Registration");
+	query.equalTo("associated_session", session_id);
+	query.equalTo("associated_experiment", experiment_id);
+	query.equalTo("associated_participant", participant_id);
+	query.find(function(results) {
+		
+		
+		//Modify existing Registration or create a new one.
+		
+		if(results.length > 0) {
+			if(results[0].active == 1) {
+				$("#" + participant_id).prop("checked", true);
+			}
+		}
+	});
+}
+
+function getSessionParticipants(session_id, experiment_id) {
+	window.active_experiment_id = experiment_id;
+	var query = new Query("Participants");
+	query.find(function(results) {
+		for(var i=0; i<results.length; i++) {
+			$(".sessions-list").append('<tr class="participant">\
+										<td><input type="checkbox" id="' + results[i].id + '"></td>\
+										<td>' +  results[i].full_name + '</td>\
+										<td>' +  results[i].email + '</td>\
+									</tr>');
+									
+			isRegistered(session_id, experiment_id, results[i].id);
+		}
+	});
+}
+
+
+$(document).on('click', '.select-all', function() {
+
+	if($(this).is(":checked"))
+		$("input[type='checkbox']").each(function() {
+			if(!$(this).hasClass("select-all"))
+				$(this).prop("checked", true);
+		});
+	else {
+		$("input[type='checkbox']").each(function() {
+			if(!$(this).hasClass("select-all"))
+				$(this).prop("checked", false);
+		});
+	}
+});
+
+
+function checkRegistration(participant_id, is_active) {
+	var query = new Query("Registration");
+	query.equalTo("associated_experiment", window.active_experiment_id);
+	query.equalTo("associated_session", window.active_session_id);
+	query.equalTo("associated_participant", participant_id);
+	query.find(function(results) {
+		
+		
+		//Modify existing Registration or create a new one.
+		
+		if(results.length > 0) {
+		
+			var q = new Query("Registration");
+			q.get(results[0].id, function(r) {
+				
+				r.set("active", is_active);
+				r.save(function(r) {
+				
+				});
+			});
+			
+			
+		
+			
+		} else {
+			var query = new Query("Registration");
+			query.create(function(a) {
+				a.set("active", is_active);
+				a.set("associated_experiment", window.active_experiment_id);
+				a.set("associated_session", window.active_session_id);
+				a.set("associated_participant", participant_id);
+				a.save(function(result) {
+					
+				});
+			});
+		}
+	});
+	
+}
+
+
+$(document).on('click', '.save-session-participants', function() {
+
+	$("input[type='checkbox']").each(function() {
+		if(!$(this).hasClass("select-all")) {
+			if($(this).is(":checked"))
+				checkRegistration(this.id, 1);
+			else
+				checkRegistration(this.id, 0);
+		}
+	});
+});
+
+
+$(document).on('click', '.send-session-emails', function() {
+
+	var session_id = this.id;
+	$(".email-status").show();
+	$(".email-status > i").replaceWith('<i class="fa fa-spinner fa-spin"></i>');
+	$(".email-status-text").html("Sending");
+	
+	$.post( "../php/send_session_emails.php", {session_id: session_id}).done(function(data) {
+		$(".email-status > i").replaceWith('<i class="fa fa-check"></i>');
+		$(".email-status-text").html(data);
+		
+	});
+});
 
 
 $(document).on('submit', '.edit-session', function(e) {
@@ -387,20 +515,21 @@ function getCompletedExperiments() {
 	query.equalTo("finished", 1);
 	query.find(function(results) {
 		
-		if(results.length > 0)
-		for(var i=0; i<results.length; i++) {
-			
-			$(".experiments-list").append('<div class="experiment">\
-											<div class="experiment-name" id="' + results[i].id + '">\
-												' + results[i].name + '\
-											</div>\
-											<div class="description">\
-												' + results[i].description + '\
-											</div>\
-											<div class="reg-url">\
-												<i class="fa fa-share-square"></i> <a href="experiment.php?id=' + results[i].id + '">http://example.com/e/?e=3923758</a>\
-											</div>\
-										</div>');
+		if(results.length > 0) {
+			for(var i=0; i<results.length; i++) {
+				
+				$(".experiments-list").append('<div class="experiment">\
+												<div class="experiment-name" id="' + results[i].id + '" style="background: rgba(0, 0, 0, .12);">\
+													' + results[i].name + '\
+												</div>\
+												<div class="description">\
+													' + results[i].description + '\
+												</div>\
+												<div class="reg-url">\
+													<i class="fa fa-share-square"></i> <a href="experiment.php?id=' + results[i].id + '">http://example.com/e/?e=3923758</a>\
+												</div>\
+											</div>');
+			}
 		} else {
 			
 			$(".experiments-list").append('<div class="experiment no-experiments">\
@@ -414,6 +543,66 @@ function getCompletedExperiments() {
 		});
 	});
 }
+
+
+
+/*
+*	admin/all_experiments.php
+*/
+
+/*
+*	admin/completed_experiments.php
+*/
+
+function getAllExperiments() {
+
+	var query = new Query("Experiments");
+	query.find(function(results) {
+		
+		if(results.length > 0) {
+			for(var i=0; i<results.length; i++) {
+				
+				if(results[i].finished == 0) {
+					$(".experiments-list").append('<div class="experiment">\
+													<div class="experiment-name" id="' + results[i].id + '">\
+														' + results[i].name + '\
+													</div>\
+													<div class="description">\
+														' + results[i].description + '\
+													</div>\
+													<div class="reg-url">\
+														<i class="fa fa-share-square"></i> <a href="experiment.php?id=' + results[i].id + '">http://example.com/e/?e=3923758</a>\
+													</div>\
+												</div>');
+				} else {
+					$(".experiments-list").append('<div class="experiment">\
+													<div class="experiment-name" id="' + results[i].id + '" style="background: rgba(0, 0, 0, .12);">\
+														' + results[i].name + '\
+													</div>\
+													<div class="description">\
+														' + results[i].description + '\
+													</div>\
+													<div class="reg-url">\
+														<i class="fa fa-share-square"></i> <a href="experiment.php?id=' + results[i].id + '">http://example.com/e/?e=3923758</a>\
+													</div>\
+												</div>');
+				}
+			}
+		} else {
+			
+			$(".experiments-list").append('<div class="experiment no-experiments">\
+												<br><br><br><br><br><i class="fa fa-plus"></i>\
+												<br><br><br>No completed experiments. You should make one.\
+											</div>');
+		}
+
+		$(".experiment-name").click(function() {
+			window.location.replace("experiment.php?id=" + this.id);
+		});
+	});
+}
+
+
 
 
 

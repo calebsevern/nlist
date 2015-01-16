@@ -36,6 +36,7 @@
 					<input type="password" name="password" placeholder="Password"><br><br>
 					<input type="password" name="confirm_password" placeholder="Confirm Password"><br><br><br><br>
 					<input type="submit" value="Register" data-flag="register">
+					<br><br><text class="login-error">Invalid username/password.</text>
 					<div class="existing-account">
 						Already have an account? <a href="#" class="login-link">Log In</a>
 					</div>

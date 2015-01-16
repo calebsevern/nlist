@@ -26,6 +26,8 @@ function ajaxLogin(form_data) {
 		success: function(data) {
 			if(data == "ok")
 				window.location.replace("../");
+			else
+				$(".login-error").show();
 		}
 	});
 }
@@ -55,6 +57,7 @@ $(function() {
 	});
 	
 	$(document).on('click', '.register-link', function() {
+		$(".login-error").hide();
 		$("form").attr("action", "register.php");
 		$(".register-box > h3").html("Sign Up");
 		$("input[type='submit']").val("Register");
