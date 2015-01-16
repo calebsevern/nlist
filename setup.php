@@ -68,6 +68,8 @@
 		
 	//Create Registration table
 	$sql = "CREATE TABLE IF NOT EXISTS Registration( ";
+	$sql .= "id VARCHAR(256) NOT NULL, ";
+	$sql .= "active BOOLEAN NOT NULL, ";
 	$sql .= "associated_participant VARCHAR(256) NOT NULL, ";
 	$sql .= "associated_experiment VARCHAR(256) NOT NULL, ";
 	$sql .= "associated_session VARCHAR(256) NOT NULL);";
