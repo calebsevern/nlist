@@ -19,13 +19,13 @@
 				<p>
 					nlist is the experimental economics recruiting platform that helps academics organize and execute their experiments.
 					<br><br>
-					<ul>
-						<li>asdfasdf asdfadsfa</li>
-						<li>dsfadaf sdfasd f</li>
-						<li>adsfa f ads </li>
-						<li>dsfadaf sdfasd f</li>
-						<li>adsfa f ads </li>
-					</ul>
+					<ol>
+						<li>Create Experiments</li>
+						<li>Add Experimental Sessions</li>
+						<li>Organize Recruits</li>
+						<li>Send Invitations</li>
+						<li>Record Results</li>
+					</ol>
 				</p>
 			</div>
 			<div class="register-box"><br>
