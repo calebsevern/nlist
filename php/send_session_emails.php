@@ -68,7 +68,7 @@
 	
 	$emails_sent = 0;
 	
-	$reg_statement = $pdo->prepare("SELECT * FROM $db_name.Registration WHERE associated_session=$session_id AND active=TRUE");
+	$reg_statement = $pdo->prepare("SELECT * FROM $db_name.Registration WHERE associated_session=$session_id AND (active=TRUE OR standby=TRUE)");
 	$reg_statement->execute(array());
 	$regs = $reg_statement->fetchAll(PDO::FETCH_ASSOC);
 	
@@ -86,7 +86,9 @@
 			
 			$participant_name  = $parts[0]['full_name'];
 			$participant_email = $parts[0]['email'];
-			
+			$participant_id = $parts[0]['id'];
+			$p = explode("php", $configs['public_directory']);
+			$mail_link = $p[0] . "public/confirm.php?e=$exp_id&s=$session_id&p=$participant_id";
 			
 			/*
 			*	3b
@@ -108,7 +110,9 @@
 			Notes: $session_notes
 						
 			Proctor: $proctor
-			Contact address: $proctor_email						
+			Contact address: $proctor_email	
+
+			Confirm: $mail_link
 					";
 			
 			$host = $configs['smtp_host'];

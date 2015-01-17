@@ -30,12 +30,16 @@
 			<div class="action import-status" style="width: 310px; text-align: left; display: none;">
 				<input type="file" class="email-status-text participant-import" style="position: relative; left: 10px; top: 6px; font-size: 14px; width: auto;">
 			</div>
+			<div class="action email-status" style="float: right; width: 200px;">
+				<input type="text" placeholder="Type to search" class="all-participant-search" style="width: auto; position: relative; top: 6px;">
+			</div>
 		</div>
 		<table class="new-form all-participants" style="position: absolute; width: 100%;">
 			<thead>
 				<th>ID</th>
 				<th>Name</th>
 				<th>Email</th>
+				<th>Tag</th>
 				<th>Notes</th>
 			</thead>
 			<tbody>

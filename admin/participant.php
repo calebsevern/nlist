@@ -1,3 +1,6 @@
+<?php
+	$participant_id = $_GET['id'];
+?>
 <!doctype html>
 <html>
 	<head>
@@ -9,13 +12,13 @@
 	
 	<div class="page-header">
 		<div class="header-text">
-			New Participant
+			Edit Participant
 		</div>
 	</div>
 	
 	<center>
 		<div class="experiment-details-pane" style="position: relative; width: 500px;">
-			<form class="new-form create-new-participant" method="POST">
+			<form class="new-form save-participant" method="POST">
 			
 				<div class="form-label" data-for="participant-name">Full Name</div><br>
 				<input type="text" class="participant-name" placeholder="Full Name">
@@ -42,7 +45,7 @@
 				
 				<br><br>
 				
-				<input type="submit" value="CREATE PARTICIPANT">
+				<input type="submit" value="SAVE PARTICIPANT">
 				<br><br>
 			</form>
 		</div>
@@ -51,6 +54,11 @@
 	<script src="../js/jquery.2.1.1.min.js"></script>
 	<script src="../js/script.js"></script>
 	<script src="../js/db.js"></script>
+	<script>
+		$(function() {
+			getParticipantInfo("<?php echo $participant_id;?>");
+		});
+	</script>
 	
 	</body>
 

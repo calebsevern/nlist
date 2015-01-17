@@ -1,14 +1,14 @@
-email, full_name, phone_number
-asdf1@gmail.com, John Doe, 555-555-5555
-asdf2@gmail.com, John Doe, 555-555-5555
-asdf3@gmail.com, John Doe, 555-555-5555
-asdf4@gmail.com, John Doe, 555-555-5555
-asdf5@gmail.com, John Doe, 555-555-5555
-asdf6@gmail.com, John Doe, 555-555-5555
-asdf7@gmail.com, John Doe, 555-555-5555
-asdf8@gmail.com, John Doe, 555-555-5555
-asdf9@gmail.com, John Doe, 555-555-5555
-asdf10@gmail.com, John Doe, 555-555-5555
-asdf11@gmail.com, John Doe, 555-555-5555
-asdf12@gmail.com, John Doe, 555-555-5555
-asdf13@gmail.com, John Doe, 555-555-5555
+email, full_name, phone_number, tag
+asdf1@gmail.com, John Doe, 555-555-5555, Mathematics
+asdf2@gmail.com, John Doe, 555-555-5555, Biology
+asdf3@gmail.com, John Doe, 555-555-5555, Biology
+asdf4@gmail.com, John Doe, 555-555-5555, Mathematics
+asdf5@gmail.com, John Doe, 555-555-5555, Biology
+asdf6@gmail.com, John Doe, 555-555-5555, Computer Science
+asdf7@gmail.com, John Doe, 555-555-5555, Economics
+asdf8@gmail.com, John Doe, 555-555-5555, Economics
+asdf9@gmail.com, John Doe, 555-555-5555, Mathematics
+asdf10@gmail.com, John Doe, 555-555-5555, Physics
+asdf11@gmail.com, John Doe, 555-555-5555, Mathematics
+asdf12@gmail.com, John Doe, 555-555-5555, Economics
+asdf13@gmail.com, John Doe, 555-555-5555, Psychology

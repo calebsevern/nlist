@@ -94,6 +94,7 @@ html, body {
 	color: rgba(255, 255, 255, .4);
 	font-size: 11px;
 	text-transform: uppercase;
+	text-decoration: underline;
 }
 
 .nav > .tab:hover {
@@ -535,6 +536,12 @@ input[type='submit']:hover {
 .all-participants th {
 	text-align: left;
 	padding: 6px;
+}
+
+.edit-participant:hover {
+	cursor: pointer;
+	border-left: 6px solid #3498db;
+	background: rgba(0, 0, 0, .02);
 }
 	
 	

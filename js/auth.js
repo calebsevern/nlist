@@ -68,15 +68,17 @@ $(function() {
 	});
 	
 	$(".register-form").submit(function(e) {
+		if(!$(this).hasClass("install-form")) {
 		
-		if(!validateForm()) {
-			e.preventDefault();
-			alert("Please check the form.");
-		} else {
-			if($(this).attr("action") == "register.php")
-				ajaxRegister($(this).serialize());
-			ajaxLogin($(this).serialize());
-			return false;
+			if(!validateForm()) {
+				e.preventDefault();
+				alert("Please check the form.");
+			} else {
+				if($(this).attr("action") == "register.php")
+					ajaxRegister($(this).serialize());
+				ajaxLogin($(this).serialize());
+				return false;
+			}
 		}
 	});
 });

@@ -46,8 +46,6 @@ $(function() {
 
 
 
-
-
 /*
 *	url: admin/newexperiment.php
 */
@@ -212,7 +210,20 @@ function isRegistered(session_id, experiment_id, participant_id) {
 		
 		if(results.length > 0) {
 			if(results[0].active == 1) {
+				
+				$(".row-" + participant_id).css("color", "black");
 				$("#" + participant_id).prop("checked", true);
+				var status = (results[0].confirmed == 1) ? '<i class="fa fa-check" style="color: #2ecc71;"></i>' : '<i class="fa fa-exclamation-triangle" style="color: #F4D03F;"></i>';
+				
+				$(".conf-status-" + participant_id).html(status);
+				
+			} else if(results[0].standby == 1) {
+				
+				$(".row-" + participant_id).css("color", "black");
+				$("input[data-pid='" + participant_id + "']").prop("checked", true);
+				var status = (results[0].confirmed == 1) ? '<i class="fa fa-check" style="color: #2ecc71;"></i>' : '<i class="fa fa-exclamation-triangle" style="color: #F4D03F;"></i>';
+				$(".conf-status-" + participant_id).html(status);
+				
 			}
 		}
 	});
@@ -223,11 +234,15 @@ function getSessionParticipants(session_id, experiment_id) {
 	var query = new Query("Participants");
 	query.find(function(results) {
 		for(var i=0; i<results.length; i++) {
-			$(".sessions-list").append('<tr class="participant">\
-										<td><input type="checkbox" id="' + results[i].id + '"></td>\
-										<td>' +  results[i].full_name + '</td>\
-										<td>' +  results[i].email + '</td>\
-									</tr>');
+					
+			$(".sessions-list").append('<tr class="participant row-' + results[i].id + '" style="color: rgba(0, 0, 0, .5);">\
+											<td class="conf-status-' + results[i].id + '" style="text-align: center;"></td>\
+											<td><input type="checkbox"  class="add-checkbox" id="' + results[i].id + '"></td>\
+											<td><input type="checkbox" class="reserve-checkbox" data-pid="' + results[i].id + '"></td>\
+											<td>' +  results[i].full_name + '</td>\
+											<td>' +  results[i].email + '</td>\
+											<td>' +  results[i].tag + '</td>\
+										</tr>');
 									
 			isRegistered(session_id, experiment_id, results[i].id);
 		}
@@ -239,58 +254,76 @@ $(document).on('click', '.select-all', function() {
 
 	if($(this).is(":checked"))
 		$("input[type='checkbox']").each(function() {
-			if(!$(this).hasClass("select-all"))
-				$(this).prop("checked", true);
+			if(!$(this).hasClass("select-all") && !$(this).hasClass("reserve-checkbox") && $(this).is(":visible"))
+				$(this).prop("checked", true).trigger("click").trigger("click");
 		});
 	else {
 		$("input[type='checkbox']").each(function() {
-			if(!$(this).hasClass("select-all"))
-				$(this).prop("checked", false);
+			if(!$(this).hasClass("select-all") && !$(this).hasClass("reserve-checkbox") && $(this).is(":visible"))
+				$(this).prop("checked", false).trigger("click").trigger("click");
 		});
 	}
 });
 
 
 function checkRegistration(participant_id, is_active) {
-	var query = new Query("Registration");
-	query.equalTo("associated_experiment", window.active_experiment_id);
-	query.equalTo("associated_session", window.active_session_id);
-	query.equalTo("associated_participant", participant_id);
-	query.find(function(results) {
+	
+	if(participant_id) {
+		var is_standby = ($("input[data-pid='" + participant_id + "']").is(":checked")) ? 1 : 0;
 		
-		
-		//Modify existing Registration or create a new one.
-		
-		if(results.length > 0) {
-		
-			var q = new Query("Registration");
-			q.get(results[0].id, function(r) {
-				
-				r.set("active", is_active);
-				r.save(function(r) {
-				
-				});
-			});
+		var query = new Query("Registration");
+		query.equalTo("associated_experiment", window.active_experiment_id);
+		query.equalTo("associated_session", window.active_session_id);
+		query.equalTo("associated_participant", participant_id);
+		query.find(function(results) {
 			
 			
-		
+			//Modify existing Registration or create a new one.
 			
-		} else {
-			var query = new Query("Registration");
-			query.create(function(a) {
-				a.set("active", is_active);
-				a.set("associated_experiment", window.active_experiment_id);
-				a.set("associated_session", window.active_session_id);
-				a.set("associated_participant", participant_id);
-				a.save(function(result) {
+			if(results.length > 0) {
+			
+				var q = new Query("Registration");
+				q.get(results[0].id, function(r) {
 					
+					r.set("active", is_active);
+					r.set("standby", is_standby);
+					r.save(function(r) {
+					
+					});
 				});
-			});
-		}
-	});
+				
+				
+			
+				
+			} else if(is_active === 1 || is_standby === 1) {
+				var query = new Query("Registration");
+				query.create(function(a) {
+					a.set("active", is_active);
+					a.set("standby", is_standby);
+					a.set("associated_experiment", window.active_experiment_id);
+					a.set("associated_session", window.active_session_id);
+					a.set("associated_participant", participant_id);
+					a.save(function(result) {
+						
+					});
+				});
+			}
+		});
+	
+	}
 	
 }
 
+
+$(document).on('click', '.reserve-checkbox', function() {
+	if($(this).is(":checked"))
+		$("#" + $(this).attr('data-pid')).prop("checked", false);
+});
+
+$(document).on('click', '.add-checkbox', function() {
+	if($(this).is(":checked"))
+		$("input[data-pid='" + this.id + "']").prop("checked", false);
+});
 
 $(document).on('click', '.save-session-participants', function() {
 
@@ -372,6 +405,21 @@ $(document).on('submit', '.edit-session', function(e) {
 	
 	return false;
 });
+
+
+$(document).on('keyup', '.participant-search', function() {
+	
+	var query = $(this).val().toLowerCase();
+	$(".participant").each(function() {
+		var field = $(this).text().toLowerCase();
+		if(field.indexOf(query) > -1)
+			$(this).show();
+		else
+			$(this).hide();
+	});
+	
+});
+
 
 
 
@@ -647,6 +695,7 @@ $(document).on('submit', '.create-new-participant', function(e) {
 				a.set("full_name", $(".participant-name").val());
 				a.set("phone_number", $(".participant-phone").val());
 				a.set("notes", $(".participant-notes").val());
+				a.set("tag", $(".participant-tag").val());
 				a.save(function(result) {
 					alert('Participant created.');
 					window.location.reload();
@@ -676,15 +725,34 @@ function getAllParticipants() {
 	query.find(function(results) {
 	
 		for(var i=0; i<results.length; i++) {
-			$(".new-form tbody").append('<tr>\
+			$(".new-form tbody").append('<tr class="edit-participant" id="' + results[i].id + '">\
 										<td>' + results[i].id + '</td>\
 										<td>' + results[i].full_name + '</td>\
 										<td>' + results[i].email + '</td>\
+										<td>' + results[i].tag + '</td>\
 										<td style="color: rgba(0, 0, 0, .6);">' + results[i].notes + '</td>\
 								  ');
+								
+			$(".edit-participant").click(function() {
+				window.location.replace("participant.php?id=" + this.id);
+			});
 		}	
 	});
 }
+
+
+$(document).on('keyup', '.all-participant-search', function() {
+	
+	var query = $(this).val().toLowerCase();
+	$(".all-participants tbody tr").each(function() {
+		var field = $(this).text().toLowerCase();
+		if(field.indexOf(query) > -1)
+			$(this).show();
+		else
+			$(this).hide();
+	});
+	
+});
 
 
 $(document).on('click', '.import-action', function() {
@@ -699,7 +767,7 @@ function readFile(file, onLoadCallback){
 }
 
 
-function createParticipant(email, full_name, phone_number) {
+function createParticipant(email, full_name, phone_number, tag) {
 	var q = new Query("Participants");
 	q.equalTo("email", email);
 	q.find(function(r) {
@@ -710,12 +778,14 @@ function createParticipant(email, full_name, phone_number) {
 				a.set("email", email);
 				a.set("full_name", full_name);
 				a.set("phone_number", phone_number);
+				a.set("tag", tag);
 				a.set("notes", "");
 				a.save(function(result) {
 					$(".new-form tbody").prepend('<tr>\
 												<td>' + result.id + '</td>\
 												<td>' + result.full_name + '</td>\
 												<td>' + result.email + '</td>\
+												<td>' + result.tag + '</td>\
 												<td style="color: rgba(0, 0, 0, .6);">' + result.notes + '</td>\
 										  ');
 				});
@@ -730,11 +800,9 @@ $(document).on('change', '.participant-import', function(e) {
 	readFile(this.files[0], function(e) {
 	
 		var text = e.target.result;
-		console.log(text);
 		var users = text.split("\n");
 		
 		for(var i=1; i<users.length; i++) {
-			
 			
 			//TODO: Add non-definite formats
 			
@@ -742,9 +810,10 @@ $(document).on('change', '.participant-import', function(e) {
 			var email = user[0];
 			var full_name = user[1];
 			var phone_number = user[2];
+			var tag = user[3];
 			
 			//Check to see if a user exists, and create on accordingly
-			createParticipant(email, full_name, phone_number);
+			createParticipant(email, full_name, phone_number, tag);
 			
 		}		
 	});
@@ -753,6 +822,49 @@ $(document).on('change', '.participant-import', function(e) {
 
 
 
+/*
+*	url: admin/participant.php
+*/
+
+function getParticipantInfo(party_id) {
+
+	var query = new Query("Participants");
+	query.equalTo("id", party_id);
+	query.find(function(results) {
+	
+		if(results.length > 0) {
+		
+			var party = results[0];
+			$(".header-text").html("Edit " + party.full_name);
+			$(".participant-name").val(party.full_name);
+			$(".participant-email").val(party.email);
+			$(".participant-phone").val(party.phone_number);
+			$(".participant-tag").val(party.tag);
+			$(".participant-notes").val(party.notes);
+			
+		}
+		
+	});
+	
+	$(document).on('submit', '.save-participant', function(e) {
+
+		e.preventDefault();
+		
+		var q = new Query("Participants");
+		q.get(party_id, function(a) {
+			a.set("email", $(".participant-email").val());
+			a.set("full_name", $(".participant-name").val());
+			a.set("phone_number", $(".participant-phone").val());
+			a.set("notes", $(".participant-notes").val());
+			a.set("tag", $(".participant-tag").val());
+			a.save(function(result) {
+				window.location.reload();
+			});
+		});
+		
+		return false;
+	});
+}
 
 
 
@@ -764,7 +876,31 @@ $(document).on('change', '.participant-import', function(e) {
 
 
 
+/*
+*	url: public/confirm.php
+*/
 
+function confirmRegistration(session_id, experiment_id, participant_id) {
+
+	//This is ugly, I need to fix the JS wrapper...
+
+	var q = new Query("Registration");
+	q.equalTo("associated_session", session_id);
+	q.equalTo("associated_experiment", experiment_id);
+	q.equalTo("associated_participant", participant_id);
+	q.find(function(r) {
+		if(r.length > 0) {
+			
+			var query = new Query("Registration");
+			query.get(r[0].id, function(a) {
+				
+				a.set("confirmed", "1");
+				a.save(function(result) {
+				});
+			});
+		}
+	});
+}
 
 
 

@@ -56,6 +56,7 @@
 	$sql .= "email VARCHAR(100) NOT NULL, ";
 	$sql .= "password VARCHAR(256) NOT NULL, ";
 	$sql .= "phone_number VARCHAR(256) NOT NULL, ";
+	$sql .= "tag VARCHAR(256) NOT NULL, ";
 	$sql .= "notes VARCHAR(512) NOT NULL, ";
 	$sql .= "full_name VARCHAR(256) NOT NULL);";
 	
@@ -70,6 +71,8 @@
 	$sql = "CREATE TABLE IF NOT EXISTS Registration( ";
 	$sql .= "id VARCHAR(256) NOT NULL, ";
 	$sql .= "active BOOLEAN NOT NULL, ";
+	$sql .= "standby BOOLEAN NOT NULL, ";
+	$sql .= "confirmed BOOLEAN NOT NULL, ";
 	$sql .= "associated_participant VARCHAR(256) NOT NULL, ";
 	$sql .= "associated_experiment VARCHAR(256) NOT NULL, ";
 	$sql .= "associated_session VARCHAR(256) NOT NULL);";
@@ -143,9 +146,9 @@
 	
 	$create_admin = mysqli_query($link, $sql);
 	if(!$create_admin)
-		echo "Error: " . mysqli_error($link);
+		die("Could not create admin account.\n");
 	else
 		echo "Created administrator.\n";
 
-	echo "Connected successfully.\n\n";
+	header("Location: index.php");
 

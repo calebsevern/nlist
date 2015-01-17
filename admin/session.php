@@ -65,7 +65,7 @@
 		</form>
 	</div>
 	
-	<div class="experiment-sessions-pane">
+	<div class="experiment-sessions-pane" style="overflow-y: auto;">
 		<div class="page-header">
 			<div class="header-text">
 				Participants
@@ -83,6 +83,9 @@
 					Sending
 				</text>
 			</div>
+			<div class="action email-status" style="float: right; width: 200px;">
+				<input type="text" placeholder="Type to search" class="participant-search" style="width: auto; position: relative; top: 6px;">
+			</div>
 			
 			
 		</div>
@@ -90,9 +93,12 @@
 		<table class="sessions-list" style="width: 100%; height: auto; border-collapse: collapse; background: none;">
 			<thead>
 				<tr>
-					<th><input type="checkbox" class="select-all"></th>
+					<th></th>
+					<th><input type="checkbox" class="select-all">Add</th>
+					<th>Standby</th>
 					<th style="text-align: left;">Name</th>
 					<th style="text-align: left;">Email</th>
+					<th style="text-align: left;">Tag</th>
 				</tr>
 			</thead>
 		</table>
