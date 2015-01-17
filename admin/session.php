@@ -60,7 +60,7 @@
 			
 			<br><br>
 			
-			<input type="submit" value="CREATE SESSION">
+			<input type="submit" value="SAVE SESSION">
 			<br><br>
 		</form>
 	</div>

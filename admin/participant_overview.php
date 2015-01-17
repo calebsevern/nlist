@@ -13,10 +13,34 @@
 		</div>
 	</div>
 
-	<div class="new-form-container">
-		<div class="new-form">
-			<br>
+	
+	<div class="experiment-sessions-pane" style="left: 30px; width: calc(100% - 70px); position: absolute; overflow-y: auto;">
+		<div class="page-header">
+			<a href="new_participant.php" class="action">
+				<i class="fa fa-plus"></i>
+			</a>
+			<a href="#" class="action import-action">
+				<i class="fa fa-upload"></i>
+			</a>
+			<div class="action import-status" style="width: 220px; text-align: left; display: none;">
+				<div class="email-status-text" style="position: relative; left: 10px; top: 16px; font-size: 15px; width: auto;">
+					Files must follow <a href="import_example.csv">this template</a>
+				</div>
+			</div>
+			<div class="action import-status" style="width: 310px; text-align: left; display: none;">
+				<input type="file" class="email-status-text participant-import" style="position: relative; left: 10px; top: 6px; font-size: 14px; width: auto;">
+			</div>
 		</div>
+		<table class="new-form all-participants" style="position: absolute; width: 100%;">
+			<thead>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Email</th>
+				<th>Notes</th>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
 	</div>
 	
 	<script src="../js/jquery.2.1.1.min.js"></script>

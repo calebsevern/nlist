@@ -100,6 +100,7 @@ function populateExperimentDetails(experiment_id) {
 		$(".experiment-proctor-email").val(experiment.proctor_email).trigger("keyup");
 		if(experiment.finished == 1)
 			$(".experiment-finished").prop("checked", true);
+			
 	});
 	
 	
@@ -112,15 +113,20 @@ function populateExperimentDetails(experiment_id) {
 		for(var i=0; i<results.length; i++) {
 			$(".sessions-list").append('<div class="session" id="' + results[i].id + '">\
 											<div class="session-date">' + results[i].start_date + '</div>\
+											<div class="lab-name">\
+												' + results[i].laboratory + '\
+											</div>\
 											<div class="timeframe">\
 												' + results[i].start_time + ' to ' + results[i].end_time + '\
 											</div>\
+											<div class="lab-notes">\
+												' + results[i].notes + '\
+											</div>\
 											<div class="users">\
-												<text class="num">' + results[i].required_participants + '</text>\
-												<br><br><br>required\
+												<text class="num" style="font-size: 56px;">' + results[i].required_participants + '</text><br> required\
 											</div>\
 											<div class="reserve">\
-												<text class="num">' + results[i].reserve_participants + ' on reserve</text>\
+												<text class="num">' + results[i].reserve_participants + '</text> on standby\
 											</div>\
 										</div>');
 										
@@ -478,10 +484,12 @@ function getCurrentExperiments() {
 												<div class="description">\
 													' + results[i].description + '\
 												</div>\
+											</div>');
+											/*
 												<div class="reg-url">\
 													<i class="fa fa-share-square"></i> <a href="experiment.php?id=' + results[i].id + '">http://example.com/e/?e=3923758</a>\
 												</div>\
-											</div>');
+											*/
 			}	
 		} else {
 			$(".experiments-list").append('<div class="experiment no-experiments">\
@@ -525,9 +533,6 @@ function getCompletedExperiments() {
 												<div class="description">\
 													' + results[i].description + '\
 												</div>\
-												<div class="reg-url">\
-													<i class="fa fa-share-square"></i> <a href="experiment.php?id=' + results[i].id + '">http://example.com/e/?e=3923758</a>\
-												</div>\
 											</div>');
 			}
 		} else {
@@ -570,9 +575,6 @@ function getAllExperiments() {
 													<div class="description">\
 														' + results[i].description + '\
 													</div>\
-													<div class="reg-url">\
-														<i class="fa fa-share-square"></i> <a href="experiment.php?id=' + results[i].id + '">http://example.com/e/?e=3923758</a>\
-													</div>\
 												</div>');
 				} else {
 					$(".experiments-list").append('<div class="experiment">\
@@ -581,9 +583,6 @@ function getAllExperiments() {
 													</div>\
 													<div class="description">\
 														' + results[i].description + '\
-													</div>\
-													<div class="reg-url">\
-														<i class="fa fa-share-square"></i> <a href="experiment.php?id=' + results[i].id + '">http://example.com/e/?e=3923758</a>\
 													</div>\
 												</div>');
 				}
@@ -636,20 +635,29 @@ $(document).on('submit', '.create-new-participant', function(e) {
 
 	e.preventDefault();
 	
-	var query = new Query("Participants");
-	query.create(function(a) {
-		console.log("Created Participants with id: " + a.id);
-		
-		a.set("email", $(".participant-email").val());
-		a.set("username", $(".participant-email").val());
-		a.set("full_name", $(".participant-name").val());
-		a.set("phone_number", $(".participant-phone").val());
-		a.set("notes", $(".participant-notes").val());
-		a.save(function(result) {
-			alert('Participant created.');
-			window.location.reload();
-		});
+	var q = new Query("Participants");
+	q.equalTo("email", $(".participant-email").val());
+	q.find(function(r) {
+		console.log(r);
+		if(r.length < 1) {
+			var query = new Query("Participants");
+			query.create(function(a) {
+				
+				a.set("email", $(".participant-email").val());
+				a.set("full_name", $(".participant-name").val());
+				a.set("phone_number", $(".participant-phone").val());
+				a.set("notes", $(".participant-notes").val());
+				a.save(function(result) {
+					alert('Participant created.');
+					window.location.reload();
+				});
+			});
+		} else {
+			alert("Participant with email " + $('.participant-email').val() + " already exists.");
+		}
 	});
+	
+	
 	
 	return false;
 });
@@ -668,10 +676,100 @@ function getAllParticipants() {
 	query.find(function(results) {
 	
 		for(var i=0; i<results.length; i++) {
-			$(".new-form").append(results[i].full_name + "<br><br>");
+			$(".new-form tbody").append('<tr>\
+										<td>' + results[i].id + '</td>\
+										<td>' + results[i].full_name + '</td>\
+										<td>' + results[i].email + '</td>\
+										<td style="color: rgba(0, 0, 0, .6);">' + results[i].notes + '</td>\
+								  ');
 		}	
 	});
 }
+
+
+$(document).on('click', '.import-action', function() {
+	$(".import-status").show();
+});
+
+
+function readFile(file, onLoadCallback){
+    var reader = new FileReader();
+    reader.onload = onLoadCallback;
+    reader.readAsText(file);
+}
+
+
+function createParticipant(email, full_name, phone_number) {
+	var q = new Query("Participants");
+	q.equalTo("email", email);
+	q.find(function(r) {
+		if(r.length < 1) {
+			var query = new Query("Participants");
+			query.create(function(a) {
+				
+				a.set("email", email);
+				a.set("full_name", full_name);
+				a.set("phone_number", phone_number);
+				a.set("notes", "");
+				a.save(function(result) {
+					$(".new-form tbody").prepend('<tr>\
+												<td>' + result.id + '</td>\
+												<td>' + result.full_name + '</td>\
+												<td>' + result.email + '</td>\
+												<td style="color: rgba(0, 0, 0, .6);">' + result.notes + '</td>\
+										  ');
+				});
+			});
+		}
+	});
+}
+
+//Parses through bulk user uploads...
+
+$(document).on('change', '.participant-import', function(e) {
+	readFile(this.files[0], function(e) {
+	
+		var text = e.target.result;
+		console.log(text);
+		var users = text.split("\n");
+		
+		for(var i=1; i<users.length; i++) {
+			
+			
+			//TODO: Add non-definite formats
+			
+			var user = users[i].split(",");
+			var email = user[0];
+			var full_name = user[1];
+			var phone_number = user[2];
+			
+			//Check to see if a user exists, and create on accordingly
+			createParticipant(email, full_name, phone_number);
+			
+		}		
+	});
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
