@@ -38,15 +38,15 @@
 	
 	return array(
 		'host' => 'localhost',
-		'db' => 'econ',
-		'username' => 'root',
-		'password' => 'jvyrPM#w*vK3Mty',
-		'email' => 'yourname@example.com',
-		'full_name' => 'John Doe',
-		'smtp_host' => 'ssl://smtp.gmail.com',
-		'smtp_port' => '465',
-		'smtp_login' => 'test1231235123535@gmail.com',
-		'smtp_password' => 'Jonessoda00@',
+		'db' => 'db_placeholder',
+		'username' => 'username_placeholder',
+		'password' => 'password_placeholder',
+		'email' => 'email_placeholder',
+		'full_name' => 'full_name_placeholder',
+		'smtp_host' => 'smtp_host_placeholder',
+		'smtp_port' => 'smtp_port_placeholder',
+		'smtp_login' => 'smtp_login_placeholder',
+		'smtp_password' => 'smtp_password_placeholder',
 		'public_directory' => get_current_url()
 	);
 	

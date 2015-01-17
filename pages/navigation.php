@@ -14,14 +14,14 @@
 			<div class="tab"></div>
 			<div class="label">Experiments</div>
 			<div class="tab" data-url="admin/new_experiment.php">Create New</div>
-			<div class="tab" data-url="admin/current_experiments.php">Current</div>
+			<div class="tab selected" data-url="admin/current_experiments.php">Current</div>
 			<div class="tab" data-url="admin/completed_experiments.php">Completed</div>
 			<div class="tab" data-url="admin/all_experiments.php">All</div>
 			
 			<div class="tab"></div>
 			<div class="label">Participants</div>
 			<div class="tab" data-url="admin/new_participant.php">Create New</div>
-			<div class="tab" data-url="admin/participant_overview.php">Overview</div>
+			<div class="tab" data-url="admin/participant_overview.php">All</div>
 			
 			<div class="tab"></div>
 			<div class="label">Utilities</div>
@@ -31,7 +31,7 @@
 			<div class="tab"></div>
 			<div class="tab logout">Logout</div>
 		</div>
-		<iframe class="content-pane" src=""></iframe>
+		<iframe class="content-pane" src="admin/current_experiments.php"></iframe>
 		
 		<script src="js/jquery.2.1.1.min.js"></script>
 		<script src="js/script.js"></script>
