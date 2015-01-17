@@ -13,7 +13,8 @@
 		</div>
 	</div>
 
-	<div class="new-form-container">
+	<center>
+	<div class="experiment-details-pane" style="position: relative; width: 500px;">
 		<form class="new-form create-new-experiment" method="POST">
 		
 			<div class="form-label" data-for="experiment-name">Experiment Name</div><br>
@@ -45,6 +46,7 @@
 			<br><br>
 		</form>
 	</div>
+	</center>
 	
 	<script src="../js/jquery.2.1.1.min.js"></script>
 	<script src="../js/script.js"></script>

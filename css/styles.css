@@ -7,7 +7,6 @@ html, body {
 	background: #dcf0f1;
 	padding: 0px;
 	margin: 0px;
-	overflow-x: none;
 }
 
 ::-webkit-scrollbar {
@@ -36,7 +35,7 @@ html, body {
 }
 
 .content-pane {
-	position: fixed;
+	position: absolute;
 	right: 0px;
 	top: 0px;
 	height: 100%;
@@ -44,7 +43,8 @@ html, body {
 	width: calc(100% - 200px);
 	border: 0px;
 	overflow-y: auto;
-	overflow-x: hidden;
+	overflow-x: auto;
+	min-width: 1000px;
 }
 
 .nav {
@@ -55,6 +55,7 @@ html, body {
 	width: 200px;
 	background: #335;
 	overflow-y: auto;
+	z-index: 3;
 }
 
 .nav > .logo {
@@ -435,52 +436,59 @@ input[type='submit']:hover {
 
 	.session > .session-date {
 		position: relative;
-		top: 10px;
-		left: 10px;
+		top: 16px;
+		left: 16px;
 		font-weight: 700;
 		font-size: 18px;
 	}
 	
 	.session > .timeframe {
 		position: relative;
-		top: 10px;
-		left: 10px;
+		top: 28px;
+		left: 16px;
+	}
+	
+	.session > .lab-name {
+		position: relative;
+		font-weight: bold;
+		font-size: 36px;
+		top: 30px;
+		left: 16px;
+	}
+	
+	.session > .lab-notes {
+		position: relative;
+		top: 34px;
+		left: 16px;
+		max-width: 50%;
+		max-height: 70px;
+		overflow-y: auto;
+		color: rgba(0, 0, 0, .6);
 	}
 	
 	.session > .users {
 		position: absolute;
-		right: 0px;
-		top: 0px;
-		height: 70%;
-		width: 140px;
+		right: 16px;
+		top: 36px;
 		text-align: center;
-		background: #3498db;
-		color: #efefef;
+		width: 100px;
 	}
 	
 		.users > .num {
 			font-weight: 700;
-			font-size: 56px;
-			position: relative;
-			top: 30px;
+			color: #3A539B;
 		}
 		
 	.session > .reserve {
 		position: absolute;
-		right: 0px;
-		bottom: 0px;
-		height: 30%;
-		width: 140px;
+		right: 16px;
+		top: 140px;
+		width: 100px;
 		text-align: center;
-		background: #f39c12;
-		color: #efefef;
 	}
 	
 		.reserve > .num {
-			font-weight: 400;
-			font-size: 15px;
-			position: relative;
-			top: 20px;
+			font-weight: 700;
 		}
 		
 
@@ -505,6 +513,32 @@ input[type='submit']:hover {
 	}
 	
 
+	
+/***********************************************************
+*
+*					admin/participant_overview.php
+*
+************************************************************/
+	
+.all-participants {
+	border-collapse: collapse;
+}
+	
+.all-participants td {
+	padding: 6px;
+}
+
+.all-participants tr {
+	border-bottom: 1px solid rgba(0, 0, 0, .04);
+}
+	
+.all-participants th {
+	text-align: left;
+	padding: 6px;
+}
+	
+	
+	
 		
 /***********************************************************
 *
