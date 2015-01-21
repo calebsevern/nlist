@@ -46,8 +46,10 @@
 				<br><br>
 				
 				<input type="submit" value="SAVE PARTICIPANT">
+				
 				<br><br>
 			</form>
+				<button class="delete-participant pre-confirm" data-pid="<?php echo $participant_id;?>">DELETE PARTICIPANT</button>
 		</div>
 	</center>
 	

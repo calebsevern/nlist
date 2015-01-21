@@ -866,6 +866,24 @@ function getParticipantInfo(party_id) {
 	});
 }
 
+$(document).on('click', '.pre-confirm', function() {
+	$(this).removeClass("pre-confirm");
+	$(this).addClass("post-confirm");
+	$(this).html("CLICK AGAIN TO CONFIRM");
+});
+
+$(document).on('click', '.post-confirm', function() {
+	
+	$(this).html("DELETING...");
+	
+	var q = new Query("Participants");
+	q.get($(this).data("pid"), function(result) {
+		
+		result.destroy(function(r) {
+			window.location.replace("participant_overview.php");
+		});
+	});
+});
 
 
 

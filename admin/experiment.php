@@ -54,6 +54,17 @@
 		</form>
 	</div>
 	
+	<div class="experiment-details-pane" style="top: 610px; width: 419px;">
+		<form class="new-form save-documents" enctype="multipart/form-data" action="../docs/" method="POST">
+		
+			<h3>Documents</h3>
+			
+			<input type="file" name="doc">
+			<input type="submit" value="UPLOAD DOCUMENT">
+			<br><br>
+		</form>
+	</div>
+	
 	<div class="experiment-sessions-pane">
 		<div class="page-header">
 			<div class="header-text">

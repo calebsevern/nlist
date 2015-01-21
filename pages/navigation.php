@@ -9,7 +9,7 @@
 		<div class="nav">
 			<div class="logo">
 				nlist
-				<i class="fa fa-home"></i>
+				<!--<i class="fa fa-home"></i>-->
 			</div>
 			<div class="tab"></div>
 			<div class="label">Experiments</div>
