@@ -135,6 +135,21 @@
 		die("Could not create Sessions table.\n");
 	else
 		echo "Created Sessions table.\n";
+	
+	
+	//Create Documents table
+	$sql = "CREATE TABLE IF NOT EXISTS Documents( ";
+	$sql .= "id VARCHAR(256) NOT NULL, ";
+	$sql .= "name VARCHAR(256) NOT NULL, ";
+	$sql .= "associated_experiment VARCHAR(256) NOT NULL, ";
+	$sql .= "url VARCHAR(256) NOT NULL);";
+	
+	$create_documents = mysqli_query($link, $sql);
+	
+	if(!$create_documents)
+		die("Could not create Documents table.\n");
+	else
+		echo "Created Documents table.\n";
 
 
 	//Create default administrator with password "password"

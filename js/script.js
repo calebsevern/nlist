@@ -133,6 +133,20 @@ function populateExperimentDetails(experiment_id) {
 			});
 		}
 	});
+	
+	
+	//Get documents
+	
+	var query = new Query("Documents");
+	query.equalTo("associated_experiment", experiment_id);
+	query.find(function(results) {
+		
+		for(var i=0; i<results.length; i++) {
+			$(".documents-list").append('<div class="document">\
+											<a href="' + results[i].url + '" target="_blank">' + results[i].name + '</a>\
+										</div>');
+		}
+	});
 }
 
 $(document).on('submit', '.save-experiment', function(e) {

@@ -55,13 +55,16 @@
 	</div>
 	
 	<div class="experiment-details-pane" style="top: 610px; width: 419px;">
-		<form class="new-form save-documents" enctype="multipart/form-data" action="../docs/" method="POST">
+		<form class="new-form save-documents" enctype="multipart/form-data" action="../docs/?experiment=<?php echo $id;?>" method="POST">
 		
 			<h3>Documents</h3>
+			<div class="documents-list"></div>
+			
+			<br>
 			
 			<input type="file" name="doc">
 			<input type="submit" value="UPLOAD DOCUMENT">
-			<br><br>
+			
 		</form>
 	</div>
 	

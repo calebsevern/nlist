@@ -514,6 +514,17 @@ input[type='submit']:hover, button:hover {
 	}
 	
 
+.documents-list > .document {
+	padding: 6px;
+	margin: 10px;
+	background: rgba(0, 0, 0, .04);
+}	
+
+	.document > a {
+		text-decoration: none;
+	}
+	
+
 	
 /***********************************************************
 *
