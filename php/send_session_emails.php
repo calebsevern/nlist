@@ -93,7 +93,7 @@
 			/*
 			*	3b
 			*/
-			
+						
 			$from = "nlist <$proctor_email>";
 			$to = "$participant_name <$participant_email>"; 
 			$subject = "$exp_name Invitation: $session_start - $session_end on $session_date";
