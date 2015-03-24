@@ -8,19 +8,13 @@
 	
 	<div class="page-header">
 		<div class="header-text">
-			Participants
+			Documents 
 		</div>
 	</div>
 
 	
 	<div class="experiment-sessions-pane" style="left: 30px; width: calc(100% - 70px); position: absolute; overflow-y: auto;">
 		<div class="page-header">
-			<a href="new_participant.php" class="action">
-				<i class="fa fa-plus"></i>
-			</a>
-			<a href="#" class="action import-action">
-				<i class="fa fa-upload"></i>
-			</a>
 			<div class="action import-status" style="width: 220px; text-align: left; display: none;">
 				<div class="email-status-text" style="position: relative; left: 10px; top: 16px; font-size: 15px; width: auto;">
 					Files must follow <a href="import_example.csv">this template</a>
@@ -33,13 +27,10 @@
 				<input type="text" placeholder="Type to search" class="all-participant-search" style="width: auto; position: relative; top: 6px;">
 			</div>
 		</div>
-		<table class="new-form all-participants" style="position: absolute; width: 100%;">
+		<table class="new-form all-documents" style="position: absolute; width: 100%;">
 			<thead>
-				<th>ID</th>
 				<th>Name</th>
-				<th>Email</th>
-				<th>Tag</th>
-				<th>Notes</th>
+				<th>Experiment</th>
 			</thead>
 			<tbody>
 			</tbody>
@@ -51,7 +42,7 @@
 	<script src="../js/db.js"></script>
 	<script>
 		$(function() {
-			getAllParticipants();
+			getAllDocuments();
 		});
 	</script>
 	

@@ -5,8 +5,7 @@
 <!doctype html>
 <html>
 	<head>
-		<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-		<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
+		<link rel="stylesheet" href="../css/jquery-ui.css" />
 		<link rel="stylesheet" href="../css/styles.css">
 		<link rel="stylesheet" href="../css/jquery.timepicker.css">
 	</head>
