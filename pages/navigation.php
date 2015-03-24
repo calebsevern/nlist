@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 	<head>
-		<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 		<link rel="stylesheet" href="css/styles.css">
 		<title>nlist | Home</title>
 	</head>
@@ -25,9 +25,8 @@
 			
 			<div class="tab"></div>
 			<div class="label">Utilities</div>
-			<div class="tab">Documents</div>
-			<div class="tab" data-url="admin/settings.php">Settings</div>
-			<div class="tab">Statistics</div>
+			<div class="tab" data-url="admin/documents.php">Documents</div>
+			<div class="tab" data-url="admin/email_content.php">Email</div>
 			<div class="tab"></div>
 			<div class="tab logout">Logout</div>
 		</div>

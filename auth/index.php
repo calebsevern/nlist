@@ -5,7 +5,7 @@
 <html>
 	<head>
 		<link rel="stylesheet" href="../css/styles.css">
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 		<script src="../js/auth.js"></script>
 		<title>nlist | Login</title>
 	</head>

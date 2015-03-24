@@ -199,9 +199,11 @@ function editSessionDetails(session_id) {
 		var session_time = (start_hour > 11) ? (parseFloat(start_hour) - 12) + ":" + start_min + "pm" : start_hour + ":" + start_min + "am";
 		var duration_hours = (session.duration.split(":")[0] < 10) ? "0" + session.duration.split(":")[0] : session.duration.split(":")[0];
 		var duration_minutes = session.duration.split(":")[1];
+		var reminder_timer = (session.reminder) ? session.reminder : 0;
 		
 		$(".session-date").val(session_date);
 		$(".session-time").val(session_time);
+		$(".session-reminder").val(reminder_timer);
 		$(".session-lab").val(session.laboratory).trigger("keyup");
 		$(".required-participants").val(session.required_participants);
 		$(".reserve-participants").val(session.reserve_participants);
@@ -410,6 +412,7 @@ $(document).on('submit', '.edit-session', function(e) {
 		a.set("reserve_participants", $(".reserve-participants").val());
 		a.set("notes", $(".session-notes").val());
 		a.set("laboratory", $(".session-lab").val());
+		a.set("reminder", $(".session-reminder").val());
 	
 		a.save(function(result) {
 			window.location.reload();
@@ -901,6 +904,85 @@ $(document).on('click', '.post-confirm', function() {
 
 
 
+/*
+*	url: admin/documents.php
+*/
+
+
+function experimentNameCallback(id) {
+	var query = new Query("Experiments");
+	query.get(id, function(experiment) {
+		$(".exp-name-" + id).html('<a href="experiment.php?id=' + experiment.id + '">' + experiment.name + '</a>');
+	});
+	
+}
+
+
+function getAllDocuments() {
+
+	var query = new Query("Documents");
+	query.find(function(results) {
+	
+		for(var i=0; i<results.length; i++) {
+			$(".new-form tbody").append('<tr>\
+											<td><a href="' + results[i].url + '" target="_blank">' + results[i].name + '</a></td>\
+											<td style="color: rgba(0, 0, 0, .6);" class="exp-name-' + results[i].associated_experiment + '">...</td>\
+										</tr>');
+										
+			experimentNameCallback(results[i].associated_experiment);
+		}	
+	});
+}
+
+
+
+/*
+*	url: admin/email_content.php
+*/
+
+function getEmailContent() {
+
+	var query = new Query("Email");
+	query.find(function(results) {
+		if(results.length > 0) {
+			$(".jqte_editor").html(results[0].content);
+		}
+	});
+}
+
+
+$(document).on('click', '.save-email-content', function() {
+	
+	var content = $(".jqte_editor").html().toString();
+	
+	var query = new Query("Email");
+	query.find(function(results) {
+		if(results.length > 0) {
+			
+			var q2 = new Query("Email");
+			q2.get(results[0].id, function(email) {
+				
+				email.set("content", content);
+				email.save(function(b) {
+					window.location.reload();
+				});
+				
+			});
+			
+		} else {
+			
+			//Create the original email
+			var q2 = new Query("Email");
+			q2.create(function(email) {
+				email.set("content", content);
+				email.save(function(b) {
+					window.location.reload();
+				});
+			});
+		}
+	});
+});
+
 
 
 
@@ -933,6 +1015,42 @@ function confirmRegistration(session_id, experiment_id, participant_id) {
 		}
 	});
 }
+
+
+/*
+*	url: public/register.php
+*/
+
+$(document).on('submit', '.self-registration', function(e) {
+
+	e.preventDefault();
+	
+	
+	
+	var q = new Query("Participants");
+	q.equalTo("email", $(".participant-email").val());
+	q.find(function(r) {
+		if(r.length < 1) {
+			var query = new Query("Participants");
+			query.create(function(a) {
+				
+				a.set("email", $(".participant-email").val());
+				a.set("full_name", $(".participant-name").val());
+				a.set("phone_number", $(".participant-phone").val());
+				a.set("notes", $(".participant-notes").val());
+				a.set("tag", $(".participant-tag").val());
+				a.save(function(result) {
+					window.location.replace("confirm.php?purpose=registration");
+				});
+			});
+		} else {
+			alert("Participant with email " + $('.participant-email').val() + " already exists.");
+		}
+	});
+	
+	
+	return false;
+});
 
 
 

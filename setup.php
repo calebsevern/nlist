@@ -127,6 +127,7 @@
 	$sql .= "reserve_participants VARCHAR(256) NOT NULL, ";
 	$sql .= "associated_experiment VARCHAR(256) NOT NULL, ";
 	$sql .= "notes VARCHAR(256) NOT NULL, ";
+	$sql .= "reminder VARCHAR(256) NOT NULL, ";
 	$sql .= "laboratory VARCHAR(256) NOT NULL);";
 	
 	$create_sessions = mysqli_query($link, $sql);
@@ -150,6 +151,25 @@
 		die("Could not create Documents table.\n");
 	else
 		echo "Created Documents table.\n";
+	
+	
+	//Create Email table
+	$sql = "CREATE TABLE IF NOT EXISTS Email( ";
+	$sql .= "id VARCHAR(256) NOT NULL, ";
+	$sql .= "content TEXT NOT NULL);";
+	
+	$create_email = mysqli_query($link, $sql);
+	
+	if(!$create_email)
+		die("Could not create Email table.\n");
+	else
+		echo "Created Email table.\n";
+	
+	
+	$username = "admin";
+	$password = password_hash("password", PASSWORD_DEFAULT);
+	$sql = "INSERT INTO Users (id, username, password, email, admin, full_name) ";
+	$sql .= "VALUES ('" . mt_rand() . "', '" . $username . "', '" . $password . "', '" . $email . "', 1, '" . $full_name . "');";
 
 
 	//Create default administrator with password "password"

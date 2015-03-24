@@ -2,6 +2,8 @@
 	$session_id = $_GET['s'];
 	$experiment_id = $_GET['e'];
 	$participant_id = $_GET['p'];
+	
+	$purpose = (isset($_GET['purpose'])) ? $_GET['purpose'] : "";
 ?>
 <!doctype html>
 <html>
@@ -19,10 +21,17 @@
 					<h1>thanks!</h1>
 				</center>
 				<br>
+				<?php if($purpose == "registration") { ?>
+				<p>
+					We're received your information and look forward to seeing you around.
+					<br>
+				</p>
+				<?php } else { ?>
 				<p>
 					We've receieved your confirmation and look forward to seeing you at the experiment.
 					<br>
 				</p>
+				<?php } ?>
 			</div>
 		</div>
 	</body>
