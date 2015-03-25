@@ -21,4 +21,6 @@ Enter your database and SMTP information. The table you use does not need to exi
 You will be redirected to a sign-in page if all went well.
 
 ###Scheduling reminder emails
-We'd rather not ask for access under the webroot, so you will need to manually add php/send_reminders.php as an hourly cron task. After that, you can opt to remind participants n hours before a session starts.
+We'd rather not ask for access under the webroot, so you will need to manually add php/send_reminders.php as an hourly cron task to enable automatic reminder emails. e.g., with crontab:
+
+    25 0	* * *	user	php /var/www/html/projects/send_reminders.php
