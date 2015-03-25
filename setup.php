@@ -164,13 +164,6 @@
 		die("Could not create Email table.\n");
 	else
 		echo "Created Email table.\n";
-	
-	
-	$username = "admin";
-	$password = password_hash("password", PASSWORD_DEFAULT);
-	$sql = "INSERT INTO Users (id, username, password, email, admin, full_name) ";
-	$sql .= "VALUES ('" . mt_rand() . "', '" . $username . "', '" . $password . "', '" . $email . "', 1, '" . $full_name . "');";
-
 
 	//Create default administrator with password "password"
 
