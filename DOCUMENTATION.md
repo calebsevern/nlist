@@ -57,7 +57,7 @@ Click **Utilities > Documents** to view all documents in the system. You can sea
 
 ###The Email View (Drafting Custom Emails)
 
-Click **Utilities > Documents** to open the custom email view. Here, you will see a WYSIWYG editor you can use to draft custom emails with any formatting you like. You may also enter raw HTML if you have an HTML template you like. To enter experiment/session/participant details, use the following shortcodes. They will be replaced with the appropriate information when emails are sent.
+Click **Utilities > Documents** to open the custom email view. Here, you will see a WYSIWYG editor you can use to draft custom emails with any formatting you like. You may also enter raw HTML if you have an HTML template you like. To enter experiment/session/participant details, use the following shortcodes. They will be replaced with the appropriate information when emails are sent. You will want to look at this before sending out emails - your participants will get blank emails if you do not create one!
 
 [full_name] - The Participant's full name
 
