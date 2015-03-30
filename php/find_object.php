@@ -19,7 +19,7 @@
 
     $query_string = rtrim(trim($query_string), "AND");
 
-    $pdo = new PDO("mysql:host=$configs->host; dbname=$db_name; charset=utf8", $configs['username'], $configs['password']);
+    $pdo = new PDO("mysql:host=$host; dbname=$db_name; charset=utf8", $configs['username'], $configs['password']);
 
     if(count($keys) > 0) {
 
@@ -50,21 +50,3 @@
     }
 
     exit();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
