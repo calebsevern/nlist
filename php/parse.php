@@ -1,6 +1,6 @@
 <?php
 
 
-	echo "done.";
+    echo "done.";
 
 ?>
