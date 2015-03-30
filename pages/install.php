@@ -14,11 +14,11 @@
                 </center>
                 <br>
                 <p>
-                    Thanks for using nlist! To install, simply fill out the form on the right. 
+                    Thanks for using nlist! To install, simply fill out the form on the right.
                     <br><br>
                     An account with the following credentials will be created - you can login and change
                     your password right away:
-                    
+
                     <br><br>
                     <center>
                         username: admin<br>

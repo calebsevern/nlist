@@ -6,7 +6,7 @@
     </head>
 
     <body>
-    
+
     <div class="page-header">
         <div class="header-text">
             Customize Email
@@ -14,15 +14,15 @@
     </div>
 
     <br><br><br>
-    
+
     <center>
         <textarea name="textarea" class="jqte-test"></textarea>
-        
+
         <br>
-        
+
         <button class="save-email-content">SAVE EMAIL</button>
     </center>
-    
+
     <script src="../js/jquery.2.1.1.min.js"></script>
     <script src="../js/script.js"></script>
     <script src="../js/db.js"></script>
@@ -33,7 +33,7 @@
             getEmailContent();
         });
     </script>
-    
+
     </body>
 
 </html>

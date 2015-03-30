@@ -2,7 +2,7 @@
     $session_id = $_GET['s'];
     $experiment_id = $_GET['e'];
     $participant_id = $_GET['p'];
-    
+
     $purpose = (isset($_GET['purpose'])) ? $_GET['purpose'] : "";
 ?>
 <!doctype html>

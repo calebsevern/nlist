@@ -5,7 +5,7 @@
     </head>
 
     <body>
-    
+
     <div class="page-header">
         <div class="header-text">
             Participant Attributes
@@ -14,13 +14,13 @@
 
     <div class="new-form-container">
         <div class="new-form">
-        
+
             <br>
-            
+
             You can create custom attributes for participants if there's any special information you'd like to record.
-            
+
             <br><br>
-            
+
             <table class="custom-attributes">
                 <thead>
                     <tr>
@@ -54,14 +54,14 @@
                         </td>
                     </tr>
                 </tbody>
-            </table>            
+            </table>
         </div>
     </div>
-    
+
     <script src="../js/jquery.2.1.1.min.js"></script>
     <script src="../js/script.js"></script>
     <script src="../js/db.js"></script>
-    
+
     </body>
 
 </html>

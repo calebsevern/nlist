@@ -5,14 +5,14 @@
     </head>
 
     <body>
-    
+
     <div class="page-header">
         <div class="header-text">
-            Documents 
+            Documents
         </div>
     </div>
 
-    
+
     <div class="experiment-sessions-pane" style="left: 30px; width: calc(100% - 70px); position: absolute; overflow-y: auto;">
         <div class="page-header">
             <div class="action import-status" style="width: 220px; text-align: left; display: none;">
@@ -36,7 +36,7 @@
             </tbody>
         </table>
     </div>
-    
+
     <script src="../js/jquery.2.1.1.min.js"></script>
     <script src="../js/script.js"></script>
     <script src="../js/db.js"></script>
@@ -45,7 +45,7 @@
             getAllDocuments();
         });
     </script>
-    
+
     </body>
 
 </html>

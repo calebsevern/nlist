@@ -5,14 +5,14 @@
     </head>
 
     <body>
-    
+
     <div class="page-header">
         <div class="header-text">
             Participants
         </div>
     </div>
 
-    
+
     <div class="experiment-sessions-pane" style="left: 30px; width: calc(100% - 70px); position: absolute; overflow-y: auto;">
         <div class="page-header">
             <a href="new_participant.php" class="action">
@@ -45,7 +45,7 @@
             </tbody>
         </table>
     </div>
-    
+
     <script src="../js/jquery.2.1.1.min.js"></script>
     <script src="../js/script.js"></script>
     <script src="../js/db.js"></script>
@@ -54,7 +54,7 @@
             getAllParticipants();
         });
     </script>
-    
+
     </body>
 
 </html>
