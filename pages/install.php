@@ -5,6 +5,11 @@
         <script src="js/jquery.2.1.1.min.js"></script>
         <script src="js/auth.js"></script>
         <title>nlist | Login</title>
+        <style>
+          .register-box {
+            height: calc(100% + 60px) !important;
+          }
+        </style>
     </head>
     <body class="auth-body">
         <div class="welcome-box">
@@ -34,6 +39,7 @@
                     <input type="password" name="mysql_password" placeholder="MySQL Password"><br>
                     <input type="text" name="full_name" placeholder="Full Name"><br>
                     <input type="email" name="email" placeholder="Your Email"><br>
+                    <input type="text" name="db_host" placeholder="DB Host"><br>
                     <input type="text" name="smtp_host" placeholder="SMTP Host"><br>
                     <input type="text" name="smtp_port" placeholder="SMTP Port"><br>
                     <input type="text" name="smtp_login" placeholder="SMTP Login"><br>

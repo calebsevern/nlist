@@ -37,7 +37,7 @@
 	}
 	
 	return array(
-		'host' => 'localhost',
+		'host' => 'db_host_placeholder',
 		'db' => 'db_placeholder',
 		'username' => 'username_placeholder',
 		'password' => 'password_placeholder',
