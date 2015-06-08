@@ -1,5 +1,13 @@
 <?php
 
+	/*
+	* Include compatibility for PHP >= 5.3.7 without
+	* password_* functionality
+	* /
+
+	require "php/password_compat/lib/password.php";
+
+	
     /*
     *    Creates base user with credentials
     *    u: admin
