@@ -7,7 +7,7 @@
 
     //Initialize the DB
 
-    $link = new mysqli($configs['host'], $configs['username'], $configs['password']);
+    $link = new mysqli($configs['host'], $configs['username'], $configs['password'], $configs['db']);
     if ($link->connect_error)
         die("Connection failed: " . $link->connect_error);
 
@@ -19,4 +19,3 @@
     $c = mysqli_query($link, $sql);
     if($c)
         echo "{\"type\":\"$object\", \"id\":\"$t\"}";
-

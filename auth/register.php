@@ -9,7 +9,7 @@
 
     $configs = include('../conf.php');
 
-    $link = new mysqli($configs['host'], $configs['username'], $configs['password']);
+    $link = new mysqli($configs['host'], $configs['username'], $configs['password'], $configs['db']);
 
     // Check connection
     if ($link->connect_error) {
