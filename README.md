@@ -1,5 +1,7 @@
 # nlist - experimental economics recruiting
 
+![nlist login page](https://severn.me/res/nlist.png)
+
 ###Dependencies
 
 MySQL Native Driver
