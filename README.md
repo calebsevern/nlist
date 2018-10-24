@@ -2,6 +2,8 @@
 
 ![nlist login page](https://severn.me/res/nlist.png)
 
+![nlist home page](https://i.imgur.com/Ity4P59.png)
+
 ###Dependencies
 
 MySQL Native Driver
