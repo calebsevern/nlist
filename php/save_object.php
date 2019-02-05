@@ -35,7 +35,7 @@
     array_push($val_array, $object->id);
 
 
-    $pdo = new PDO("mysql:host=$configs->host; dbname=$db_name; charset=utf8", $configs['username'], $configs['password']);
+    $pdo = new PDO("mysql:host=$host; dbname=$db_name; charset=utf8", $configs['username'], $configs['password']);
     $stmt = $pdo->prepare("UPDATE $db_name.$object->type SET $key_string WHERE id=?");
     $stmt->execute($val_array);
     $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
